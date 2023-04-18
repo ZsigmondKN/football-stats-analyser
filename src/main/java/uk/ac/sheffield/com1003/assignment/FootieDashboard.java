@@ -71,7 +71,7 @@ public class FootieDashboard {
 
 	/**
 	 * Display the number of unique players for whole dataset, and number of player entries
-	 * for EPL and LIGA datasets
+	 * for EPL and LIGA datasets 
 	 */
 	private void printNumberUniquePlayers() {
 		System.out.print("The number of unique players in both leagues is: ");
