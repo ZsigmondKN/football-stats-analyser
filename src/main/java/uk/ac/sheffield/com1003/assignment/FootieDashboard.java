@@ -49,6 +49,13 @@ public class FootieDashboard {
 		footieDashboard.startGUI();
 	}
 
+	/**
+	 * Create an instance of the main class which will be the foundation for the whole CLI and GUI implementation
+	 *
+	 * @param eplFile the file containing the English Premier League table
+	 * @param ligaFile the file containing the La Liga table
+	 * @param queriesFile the file containing the queries used for the CLI printout
+	 */
 	public FootieDashboard(String eplFile, String ligaFile, String queriesFile) {
 		playerCatalog = new PlayerCatalog(eplFile, ligaFile);
 		List<String> queryTokens = new ArrayList<>(AbstractQueryParser.readQueryFile(queriesFile));
@@ -71,7 +78,7 @@ public class FootieDashboard {
 
 	/**
 	 * Display the number of unique players for whole dataset, and number of player entries
-	 * for EPL and LIGA datasets 
+	 * for EPL and LIGA datasets
 	 */
 	private void printNumberUniquePlayers() {
 		System.out.print("The number of unique players in both leagues is: ");
@@ -119,28 +126,36 @@ public class FootieDashboard {
 	private void executeQueries() {
 		System.out.println("Executing queries...");
 
-		for (Query query : queries) {
-			System.out.println(query.toString() + ":");
-			List<PlayerEntry> queryResults = query.executeQuery(playerCatalog);
-			printPlayerEntries(queryResults);
-			System.out.println();
+		try {
+			for (Query query : queries) {
+				System.out.println(query.toString() + ":");
+				List<PlayerEntry> queryResults = query.executeQuery(playerCatalog);
+				printPlayerEntries(queryResults);
+				System.out.println();
+			}
+		} catch (NullPointerException e) {
+			System.err.println("Null element attempted to be referenced");
+			e.printStackTrace();
 		}
 	}
 
 	/**
-	 * Display the provided players
+	 * Display a maximum of 5 of the provided players
+	 *
 	 * @param playerEntries the player entries to display
 	 */
 	private void printPlayerEntries(Collection<PlayerEntry> playerEntries) {
-		// TODO Please, limit here the number of player entries shown via console to 5
 		int i = 0;
 		for (PlayerEntry w : playerEntries) {
 			System.out.println(w.toString());
 			i++;
-			if (i > 5) return;
+			if (i >= 5) return;
 		}
 	}
 
+	/**
+	 * Print the first five player entries for both leagues
+	 */
 	private void printFirstFivePlayerEntries() {
 		System.out.println("\nEnglish Premier League:");
 		printPlayerEntries(playerCatalog.getFirstFivePlayerEntries(League.EPL));

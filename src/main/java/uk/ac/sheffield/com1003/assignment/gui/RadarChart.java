@@ -9,7 +9,11 @@ import uk.ac.sheffield.com1003.assignment.codeprovided.gui.RadarAxisValues;
 import java.util.*;
 
 /**
- * SKELETON IMPLEMENTATION
+ * Class responsible for providing functionality to create a radar chart.
+ *
+ * @version 1.0 01/04/2023
+ *
+ * @author Zsigmond Kovacs-Nagy
  */
 
 public class RadarChart extends AbstractRadarChart
@@ -23,32 +27,42 @@ public class RadarChart extends AbstractRadarChart
     @Override
     public void updateRadarChartContents(List<PlayerProperty> radarChartPlayerProperties,
                                          List<PlayerEntry> filteredPlayerEntriesList) {
-        // TODO implement
-
+        for (PlayerProperty playerProperty : radarChartPlayerProperties) {
+            double min = playerCatalog.getMinimumValue(playerProperty, filteredPlayerEntriesList);
+            double max = playerCatalog.getMaximumValue(playerProperty, filteredPlayerEntriesList);
+            double average = playerCatalog.getMeanAverageValue(playerProperty, filteredPlayerEntriesList);
+            RadarAxisValues radarAxisValue = new RadarAxisValues(min, max, average);
+            radarAxesValues.put(playerProperty, radarAxisValue);
+        }
     }
 
     @Override
-    public List<PlayerProperty> getPlayerRadarChartProperties() throws NoSuchElementException {
-        // TODO implement
+    public List<PlayerProperty> getPlayerRadarChartProperties() {
+        try {
+            return playerRadarChartProperties;
+        } catch (NoSuchElementException e) {
+            System.err.println("Element being requested does not exist");
+            e.printStackTrace();
+        }
         return null;
     }
 
     @Override
-    public Map<PlayerProperty, RadarAxisValues> getRadarPlotAxesValues() throws NoSuchElementException {
-        // TODO implement
+    public Map<PlayerProperty, RadarAxisValues> getRadarPlotAxesValues() {
+        try {
+            return radarAxesValues;
+        } catch (NoSuchElementException e) {
+            System.err.println("Element being requested does not exist");
+            e.printStackTrace();
+        }
         return null;
     }
 
     @Override
-    public AbstractPlayerCatalog getPlayerCatalog() {
-        return null;
-    }
+    public AbstractPlayerCatalog getPlayerCatalog() { return playerCatalog; }
 
     @Override
-    public List<PlayerEntry> getFilteredPlayerEntries() {
-        // TODO implement
-        return null;
-    }
+    public List<PlayerEntry> getFilteredPlayerEntries() { return filteredPlayerEntries; }
 
 }
 

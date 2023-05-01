@@ -6,6 +6,8 @@ import uk.ac.sheffield.com1003.assignment.codeprovided.gui.AbstractPlayerDashboa
 
 import java.awt.*;
 import java.awt.geom.Line2D;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * SKELETON IMPLEMENTATION
@@ -17,23 +19,37 @@ public class RadarChartPanel extends AbstractRadarChartPanel
         super(parentPanel, radarPlot);
     }
 
+    public Shape[] setBackgroundShapes (int centerXAxis, int centerYAxis) {
+        Shape[] backgroundShape = new Shape[10];
+        for (int i = 1; i < 11; i++) {
+            int j = i * 3;
+            int[] xAxes = {centerXAxis - 10*j, centerXAxis, centerXAxis + 10*j, centerXAxis + 5*j, centerXAxis - 5*j};
+            int[] yAxes = {centerYAxis, centerYAxis - 9*j, centerYAxis, centerYAxis + 9*j, centerYAxis + 9*j};
+            backgroundShape[i - 1] = new Polygon(xAxes, yAxes, 5);
+        }
+        return backgroundShape;
+    }
+
     @Override
     protected void paintComponent(Graphics g) {
-        // TODO remove code below and implement
         super.paintComponent(g);
-        Dimension d = getSize();
         Graphics2D g2 = (Graphics2D) g;
 
-        Line2D l = new Line2D.Double(
-                0,
-                0,
-                d.width,
-                d.height
-        );
-        g2.draw(l);
+        // Set up scaling info
+        Dimension panel = getSize();
+        int centerXAxis = panel.width/2;
+        int centerYAxis = panel.height/2;
 
-        System.out.println("getHeight(): " + getHeight());
-
+        // Draw background
+        Shape[] backgroundShapes = setBackgroundShapes(centerXAxis, centerYAxis);
+        for (Shape backgroundShape : backgroundShapes) {
+            g2.draw(backgroundShape);
+        }
+//        radarPlot
+//        RadarChart.getPlayerRadarChartProperties
+//        // Add stat labels
+//        for (playerRadarChartProperties)
+//        g2.drawString("test", centerXAxis, centerYAxis);
     }
 
 
