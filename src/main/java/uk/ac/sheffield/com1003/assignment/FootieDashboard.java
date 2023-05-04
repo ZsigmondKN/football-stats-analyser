@@ -147,7 +147,10 @@ public class FootieDashboard {
 	private void printPlayerEntries(Collection<PlayerEntry> playerEntries) {
 		int i = 0;
 		for (PlayerEntry w : playerEntries) {
-			System.out.println(w.toString());
+			System.out.print("Id:" + w.getId() + ", League:" + w.getLeagueType().getName());
+			for (PlayerDetail d : PlayerDetail.values())
+				System.out.print(d.getName() + ": " + w.getDetail(d) + ", ");
+			System.out.println();
 			i++;
 			if (i >= 5) return;
 		}

@@ -6,6 +6,8 @@ import uk.ac.sheffield.com1003.assignment.codeprovided.gui.AbstractPlayerDashboa
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import static uk.ac.sheffield.com1003.assignment.codeprovided.PlayerProperty.fromPropertyName;
 
@@ -194,7 +196,11 @@ public class PlayerDashboardPanel extends AbstractPlayerDashboardPanel
 
     @Override
     public void updateRadarChart() {
-        // TODO implement
+        String categoryName = (String) comboRadarChartCategories.getSelectedItem();
+        Category cat = Category.getCategoryFromName(categoryName);
+        List<PlayerProperty> listProperties = Arrays.asList(cat.getProperties());
+        radarChart.updateRadarChartContents(listProperties, filteredPlayerEntriesList);
+        repaint();
     }
 
     @Override
@@ -327,10 +333,7 @@ public class PlayerDashboardPanel extends AbstractPlayerDashboardPanel
                 }
             });
 
-            comboRadarChartCategories.addActionListener(e -> {
-                radarChart.getPlayerRadarChartProperties();
-                updateRadarChart();
-            });
+            comboRadarChartCategories.addActionListener(e -> updateRadarChart());
 
             minCheckBox.addActionListener(e -> updateRadarChart());
 

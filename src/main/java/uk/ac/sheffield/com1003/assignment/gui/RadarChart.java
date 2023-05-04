@@ -18,6 +18,11 @@ import java.util.*;
 
 public class RadarChart extends AbstractRadarChart
 {
+    /**
+     * Constructor
+     * @param playerCatalog the collection of the data used to populate the dashboard
+     * @param filteredPlayerEntriesList the player entries being used to assist the radar chart panel.
+     */
     public RadarChart(AbstractPlayerCatalog playerCatalog, List<PlayerEntry> filteredPlayerEntriesList,
                       List<PlayerProperty> playerRadarChartProperties)
     {
@@ -27,7 +32,11 @@ public class RadarChart extends AbstractRadarChart
     @Override
     public void updateRadarChartContents(List<PlayerProperty> radarChartPlayerProperties,
                                          List<PlayerEntry> filteredPlayerEntriesList) {
+        radarAxesValues.clear();
+        playerRadarChartProperties = new ArrayList<PlayerProperty>();
+        // Reset and update values
         for (PlayerProperty playerProperty : radarChartPlayerProperties) {
+            playerRadarChartProperties.add(playerProperty);
             double min = playerCatalog.getMinimumValue(playerProperty, filteredPlayerEntriesList);
             double max = playerCatalog.getMaximumValue(playerProperty, filteredPlayerEntriesList);
             double average = playerCatalog.getMeanAverageValue(playerProperty, filteredPlayerEntriesList);
