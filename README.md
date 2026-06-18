@@ -4,7 +4,7 @@
 
 ## Overview
 
-A desktop application for analyzing and visualizing professional football player statistics across multiple European leagues. Features an intuitive graphical interface with advanced filtering, querying, and interactive performance visualization.
+A desktop application for analyzing and visualising professional football player statistics across multiple European leagues. Features an intuitive graphical interface with advanced filtering, querying, and interactive performance visualisation.
 
 ## Tech Stack
 
